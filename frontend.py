@@ -16,24 +16,18 @@ st.subheader("How will you raise your child?")
 childcare = st.radio("Level", options=["Daycare", "Stay-at Home Parent"])
 
 high_school_graduation_year = st.number_input("High School Graduation Year:", min_value=1900, value=2025)
-education_level = st.radio("Level", options=["High School", "College", "Home Schooling"])
+education_level = st.radio("Level", options=["Private", "public in-state", "public out-of-state"])
 
-if education_level == "High School":
-    program = st.selectbox("Type of High School", ["Public", "Private"])
-elif education_level == "College":
-    program = st.selectbox("College Program", df["Type"].unique())
-else:
-    program = None
-
-
-program = None
-if "Graduate" in education_level:
-    program = st.selectbox("Graduate Program", options=["Business (MBA)", "Design", "Divinity", "Education", "GSAD", "Government", "Law", "Medical/Dental", "Public Health (1-Year MPH)"])
-
+if education_level == "Private":
+    program = "private"
+elif education_level == "public in-state":
+    program = "public in-state"
+elif education_level == "public out-of-state":
+    program = "public out-of-state"
 
 if st.button("Predict Cost"):
-    tuition = estimate_tuition(program, int(high_school_graduation_year), program)
-    new_tuition = reg_loaded.predict() # TODO: need to format data properly
+    tuition = estimate_tuition(program, int(high_school_graduation_year))
+    # new_tuition = reg_loaded.predict() # TODO: need to format data properly
     st.caption(f"{tuition}")
 
 
