@@ -19,6 +19,7 @@ import sys
 from functools import lru_cache
 import numpy as np
 import pandas as pd
+from delta_tuition import estimate_tuition
 
 # ───────────────────────────────────────────────────────────────
 # 0.  Paths & basic config
@@ -96,7 +97,7 @@ def list_programs(kind: str) -> set[str]:
     return set(_build_models(kind.lower()).keys())
 
 
-def estimate_tuition(kind: str, year: int, program: str | None = None) -> float:
+def estimate_tuition2(kind: str, year: int, program: str | None = None) -> float:
     """
     kind    : "g" (graduate) or "u" (undergraduate)
     year    : int academic year
@@ -150,7 +151,7 @@ def _cli_loop():
                 prog = None  # ignored
 
             try:
-                est = estimate_tuition(kind, year, prog)
+                est = estimate_tuition2(kind, year, prog)
                 label = prog if prog else "Total"
                 print(f"→ Estimated {kind_full} cost for {label} in {year}:  ${est:,.2f}\n")
             except Exception as e:
