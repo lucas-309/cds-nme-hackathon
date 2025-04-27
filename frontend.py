@@ -9,7 +9,7 @@ df = loadData()
 reg_loaded = joblib.load("reg_model.pkl")
 
 st.title("Predicting College Tuition")
-st.write("Team Members: Lucas He, Aden Zhao, Kaitlyn Liu, Rahi Dasgupta")
+st.write("Team Members: Lucas He, Aden Zhao, Kaitlyn Lu, Rahi Dasgupta")
 
 st.subheader("How will you raise your child?")
 
