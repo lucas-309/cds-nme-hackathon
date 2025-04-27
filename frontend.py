@@ -12,7 +12,7 @@ private_school_df = pd.read_csv("archive/Private_School_Tuition_by_State.csv")
 
 print(private_school_df)
 
-st.title("Raising Futures: Predicting the Cost of Tomorrow")
+st.title("The Cost of Tomorrow")
 st.subheader("How much will raising a child cost in the future?")
 st.write("Team Members: Lucas He, Aden Zhao, Kaitlyn Lu, Rahi Dasgupta")
 st.markdown("<br>", unsafe_allow_html=True)
