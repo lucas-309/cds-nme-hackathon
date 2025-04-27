@@ -43,6 +43,19 @@ def encodeData(df):
     df = pd.get_dummies(df, prefix='State', columns=['State'], drop_first=False)
     return df
 
+def createInput(year, state, type, length):
+    df = loadData()
+    df = pivotData(df)
+    df = encodeData(df)
+    print("yo!")
+    x = df.iloc[:, :1].join(df.iloc[:, 2:])
+    template_data = {col: 0 for col in x.columns}
+    template_data["Year_scaled"] = year - 2000
+    template_data["State_" + state] = 1
+    template_data["Type_" + type] = 1
+    template_data["Length"] = int(length[0])
+    return pd.DataFrame([template_data])
+
 df = loadData()
 pivot = pivotData(df)
 pivot = removeOutliers(pivot)
@@ -60,17 +73,18 @@ y_pred = reg.predict(x_test)
 
 r2 = r2_score(y_test, y_pred)
 print("R2 score:", r2)
-print(x_test)
 
 # Testing the model with future years
-test_data = {col: 0 for col in x_train.columns}
-test_data["Year_scaled"] = 25
-test_data["Type_Private"] = 1
-test_data["Type_Public In-State"] = 0
-test_data["Type_Public Out-of-State"] = 0
-test_data["Length"] = 4
-test_df = pd.DataFrame([test_data])
-print(reg.predict(test_df))
+# test_data = {col: 0 for col in x_train.columns}
+# test_data["Year_scaled"] = 25
+# test_data["Type_Private"] = 1
+# test_data["Type_Public In-State"] = 0
+# test_data["Type_Public Out-of-State"] = 0
+# test_data["Length"] = 4
+# test_df = pd.DataFrame([test_data])
+# print(reg.predict(test_df))
+
+print(reg.predict(createInput(2030, "California", "Private", "4-year")))
 
 joblib.dump(reg, "reg_model.pkl")
 
