@@ -24,7 +24,7 @@ elif education_level == "public out-of-state":
 if st.button("Predict Cost"):
     tuition = estimate_tuition(program, int(high_school_graduation_year))
     # new_tuition = reg_loaded.predict() # TODO: need to format data properly
-    st.caption(f"Per semester, the approximate tuition is ${round(tuition, 2)} (adjusted for inflation).")
+    st.caption(f"Per semester, the approximate tuition is ${round(tuition)} (adjusted for inflation).")
 
 
 # Note: the prediction doesn't work right now since we need to format the data properly before passing it into the model.
